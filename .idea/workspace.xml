@@ -4,12 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a3d80744-abce-4c3b-b4ee-766bba5b9bdd" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/PARKGEST.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/PARKGEST.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="a3d80744-abce-4c3b-b4ee-766bba5b9bdd" name="Changes" comment="V2">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Park.py" beforeDir="false" afterPath="$PROJECT_DIR$/Park.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Park_Management.py" beforeDir="false" afterPath="$PROJECT_DIR$/Park_Management.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -67,11 +63,22 @@
       <option name="presentableId" value="Default" />
       <updated>1732486998004</updated>
     </task>
+    <task id="LOCAL-00001" summary="V2">
+      <option name="closed" value="true" />
+      <created>1732564757290</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1732564757290</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
+    <MESSAGE value="V2" />
+    <option name="LAST_COMMIT_MESSAGE" value="V2" />
   </component>
 </project>

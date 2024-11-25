@@ -64,15 +64,17 @@ def remove_park():
     park_dict.pop(name)
     print(f"O parque {name} foi removido")
 
-def count_free_spaces():
+# def count_free_spaces():
     count = 0
     for Park.vacancy.free in park_dict:
         count += 1
     print(count)
 
 def median_occupation():
-    print(Park.vacancy.free / len(Park.))
+    #print(variável free da função vacancy de todos os parques, no dicionário / len(park_dict.keys())
 
+def number_of_private_parks():
+    for
 
 def stats_info():
     while True:
