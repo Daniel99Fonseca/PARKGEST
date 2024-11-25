@@ -115,7 +115,7 @@ class Park: #Criação da classe Park
                 continue
             try:
                 if option == 0:
-                    print("A sair do programa...")
+                    print("A voltar ao menu principal...")
                     break
                 elif option == 1:
                     plate = input("Matrícula: ")

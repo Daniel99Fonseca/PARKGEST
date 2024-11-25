@@ -23,7 +23,7 @@ def list_parks():
         print(park)
 
 #2. Gerir Parque
-def manage_park():
+def manage_specific_park():
     park = input("Introduza o nome do parque: ")
     if park not in park_dict:
         raise Exception("Não existe um parque com esse nome.")
@@ -64,8 +64,47 @@ def remove_park():
     park_dict.pop(name)
     print(f"O parque {name} foi removido")
 
+def count_free_spaces():
+    count = 0
+    for Park.vacancy.free in park_dict:
+        count += 1
+    print(count)
+
+def median_occupation():
+    print(Park.vacancy.free / len(Park.))
+
+
 def stats_info():
-    pass
+    while True:
+        print("1. Número total de lugares livres")
+        print("2. Taxa de ocupação média")
+        print("3. Número de parques privados")
+        print("4. Veículos por ano de registo")
+        print("5. Visualizar mapa de parques")
+        print("0. Voltar")
+        try:
+            option = int(input("Opção: "))
+        except:
+            print("Não foi introduzido um número válido.")
+            continue
+        try:
+            if option == 0:
+                print("A voltar ao menu principal.")
+                break
+            elif option == 1:
+                pass
+            elif option == 2:
+                pass
+            elif option == 3:
+                pass
+            elif option == 4:
+                pass
+            elif option == 5:
+                pass
+            else:
+                print("Opção inválida. Tente novamente.")
+        except Exception as exception:
+            print(f"Ocorreu um erro: {exception}")
 
 # Menu principal de gestão de parques
 def park_management_menu():
@@ -87,9 +126,9 @@ def park_management_menu():
                 print("A sair do programa...")
                 break
             elif option == 1:
-                list_parks()
+                count_free_spaces()
             elif option == 2:
-                manage_park()
+                manage_specific_park()
             elif option == 3:
                 create_park()
             elif option == 4:
