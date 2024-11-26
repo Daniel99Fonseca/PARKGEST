@@ -64,17 +64,31 @@ def remove_park():
     park_dict.pop(name)
     print(f"O parque {name} foi removido")
 
-# def count_free_spaces():
-    count = 0
-    for Park.vacancy.free in park_dict:
-        count += 1
-    print(count)
 
-def median_occupation():
-    #print(variável free da função vacancy de todos os parques, no dicionário / len(park_dict.keys())
+def total_free_spaces():
+    total_free = 0
+    for park in park_dict.values():
+        occupied = len(park._Park__vehicles_in_park)
+        free = park.capacity - occupied
+        total_free += free
+    print(f"Número total de lugares livres: {total_free}\n")
 
-def number_of_private_parks():
-    for
+
+def avg_vacancy_rate():
+    avg_rate_per_park = 0
+    for park in park_dict.values():
+        avg_rate_per_park += park.vacancy_rate()
+    print(f"Taxa de ocupação média: {avg_rate_per_park / len(park_dict)}\n")
+
+def count_private_parks():
+    total_parks = len(park_dict)
+    private_parks = 0
+    for park in park_dict.values():
+        if park.is_private:
+            private_parks += 1
+    percentage = (private_parks / total_parks) * 100
+    print(f"{private_parks} ({percentage}%)")
+
 
 def stats_info():
     while True:
@@ -94,11 +108,11 @@ def stats_info():
                 print("A voltar ao menu principal.")
                 break
             elif option == 1:
-                pass
+                total_free_spaces()
             elif option == 2:
-                pass
+                avg_vacancy_rate()
             elif option == 3:
-                pass
+                count_private_parks()
             elif option == 4:
                 pass
             elif option == 5:
@@ -128,7 +142,7 @@ def park_management_menu():
                 print("A sair do programa...")
                 break
             elif option == 1:
-                count_free_spaces()
+                list_parks()
             elif option == 2:
                 manage_specific_park()
             elif option == 3:
@@ -136,7 +150,7 @@ def park_management_menu():
             elif option == 4:
                 remove_park()
             elif option == 5:
-                pass
+                stats_info()
             else:
                 print("Opção inválida. Tente novamente.")
         except Exception as exception:
