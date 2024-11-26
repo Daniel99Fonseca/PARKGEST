@@ -3,6 +3,7 @@ from Park import Park
 import Vehicle_Registry
 import matplotlib.pyplot as plt
 
+
 def read_registry(file_name):
     f = open(file_name, "r")
     line = f.readline()  # Leitura linha a linha do ficheiro
@@ -16,12 +17,15 @@ def read_registry(file_name):
     f.close()
     return vehicles_dict
 
+
 park_dict = {}
+
 
 #1. Listar Parques
 def list_parks():
     for park in park_dict.values():
         print(park)
+
 
 #2. Gerir Parque
 def manage_specific_park():
@@ -30,6 +34,7 @@ def manage_specific_park():
         raise Exception("Não existe um parque com esse nome.")
     park = park_dict[park]
     park.manage_park()
+
 
 def create_park():
     name = input("Nome: ")
@@ -57,6 +62,7 @@ def create_park():
         is_private = False
     park = Park(name, location, capacity, is_private)
     park_dict.update({park.name: park})
+
 
 def remove_park():
     name = input("Nome: ")
@@ -92,6 +98,7 @@ def count_private_parks():
     print(f"{private_parks} ({percentage}:.2f)\n")
 
 
+# Este código crasha o programa, não dá load
 def count_vehicles_by_year():
     vehicles_by_year = {}
     for park in park_dict.values():
@@ -104,6 +111,7 @@ def count_vehicles_by_year():
                 vehicles_by_year[year] = 1
     plt.bar(vehicles_by_year.keys(), vehicles_by_year.values())
     plt.show(block=False)
+
 
 # def park_dict_graph():
 #     park_visualization = []
