@@ -1,6 +1,7 @@
 from vehicle import Vehicle
 from Park import Park
 import Vehicle_Registry
+import matplotlib.pyplot as plt
 
 def read_registry(file_name):
     f = open(file_name, "r")
@@ -68,17 +69,18 @@ def remove_park():
 def total_free_spaces():
     total_free = 0
     for park in park_dict.values():
-        occupied = len(park._Park__vehicles_in_park)
-        free = park.capacity - occupied
+        occupied, free = park.vacancy()
         total_free += free
     print(f"Número total de lugares livres: {total_free}\n")
 
 
 def avg_vacancy_rate():
-    avg_rate_per_park = 0
+    avg_rate_all_parks = 0
     for park in park_dict.values():
-        avg_rate_per_park += park.vacancy_rate()
-    print(f"Taxa de ocupação média: {avg_rate_per_park / len(park_dict)}\n")
+        avg_rate_all_parks += park.vacancy_rate()
+    avg_rate_all_parks /= len(park_dict)
+    print(f"Taxa de ocupação média: {avg_rate_all_parks}\n")
+
 
 def count_private_parks():
     total_parks = len(park_dict)
@@ -87,7 +89,47 @@ def count_private_parks():
         if park.is_private:
             private_parks += 1
     percentage = (private_parks / total_parks) * 100
-    print(f"{private_parks} ({percentage}%)")
+    print(f"{private_parks} ({percentage}:.2f)\n")
+
+
+def count_vehicles_by_year():
+    vehicles_by_year = {}
+    for park in park_dict.values():
+        vehicles = park.get_vehicles_in_park()
+        for vehicle in vehicles:
+            year = vehicle.year
+            if vehicle.year in vehicles:
+                vehicles_by_year[year] += 1
+            else:
+                vehicles_by_year[year] = 1
+    plt.bar(vehicles_by_year.keys(), vehicles_by_year.values())
+    plt.show(block=False)
+
+# def park_dict_graph():
+#     park_visualization = []
+#     for park in park_dict.values():
+#         park_data = {}
+#         park_data['position'] = park.location
+#         park_data['radius'] =
+
+
+def view_park_map():
+    fig, ax = plt.subplots()
+    ax.set_xlim((0, 100))
+    ax.set_ylim((0, 100))
+    ax.set_box_aspect(1)
+
+    circles = [
+        {'position': (10, 10), 'radius': 3.5, 'color': 'r'},
+        {'position': (50, 50), 'radius': 8.0, 'color': 'y'},
+        {'position': (60, 80), 'radius': 2.0, 'color': 'g'}
+    ]
+
+    for c in circles:
+        circle = plt.Circle(c['position'], c['radius'], color=c['color'], alpha=0.5)
+        ax.add_patch(circle)
+
+    plt.show(block=False)
 
 
 def stats_info():
@@ -97,7 +139,7 @@ def stats_info():
         print("3. Número de parques privados")
         print("4. Veículos por ano de registo")
         print("5. Visualizar mapa de parques")
-        print("0. Voltar")
+        print("0. Voltar\n")
         try:
             option = int(input("Opção: "))
         except:
@@ -114,13 +156,14 @@ def stats_info():
             elif option == 3:
                 count_private_parks()
             elif option == 4:
-                pass
+                count_vehicles_by_year()
             elif option == 5:
-                pass
+                view_park_map()
             else:
                 print("Opção inválida. Tente novamente.")
         except Exception as exception:
             print(f"Ocorreu um erro: {exception}")
+
 
 # Menu principal de gestão de parques
 def park_management_menu():
@@ -155,6 +198,7 @@ def park_management_menu():
                 print("Opção inválida. Tente novamente.")
         except Exception as exception:
            print(f"Ocorreu um erro: {exception}")
+
 
 Vehicle_Registry.vehicles_registry = read_registry('registo.txt')
 park_management_menu()

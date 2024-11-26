@@ -29,6 +29,7 @@ class Park: #Criação da classe Park
     def is_vehicle_in_park(self, vehicle):
         return vehicle.plate in self.__vehicles_in_park
 
+
     def register_entry(self, plate):
         if plate not in vr.vehicles_registry:
             raise Exception("O veículo não existe.")
@@ -53,14 +54,24 @@ class Park: #Criação da classe Park
         print(f"O veículo com a matrícula {plate} foi removido do parque {self.__name}")
 
 
+    def get_vehicles_in_park(self):
+        vehicles = []
+        for vehicle in self.__vehicles_in_park.values():
+            vehicles.append(vehicle)
+        return vehicles
+
     def list_vehicles_in_park(self):
         for vehicle in self.__vehicles_in_park.values():
             print(vehicle)
 
     def vacancy(self):  # Demonstração de lugares ocupados e livres
         occupied = len(self.__vehicles_in_park)
-        print(f'Lugares ocupados: {occupied}')
-        print(f'Lugares livres: {self.__capacity - occupied}')
+        free = self.__capacity - occupied
+        return occupied, free
+
+    def vacancy_rate(self):
+        occupied = len(self.__vehicles_in_park)
+        return occupied / self.__capacity
 
     def grant_access(self):
         plate = input("Matrícula: ")
@@ -81,10 +92,6 @@ class Park: #Criação da classe Park
             print(f"O acesso do veículo com a matrícula {plate} foi removido do parque {self.__name}.")
         else:
             print(f"A matrícula {plate} não tem acesso ao parque {self.__name}.")
-
-    def vacancy_rate(self):
-        occupied = len(self.__vehicles_in_park)
-        return occupied / self.__capacity
 
     def write_to_file(self):
         file_name = input("Ficheiro: ")
