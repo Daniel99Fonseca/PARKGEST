@@ -2,12 +2,13 @@ from vehicle import Vehicle
 from Park import Park
 import Vehicle_Registry
 import matplotlib.pyplot as plt
+import math
 
 
 def read_registry(file_name):
     f = open(file_name, "r")
-    line = f.readline()  # Leitura linha a linha do ficheiro
-    vehicles_dict = {}  #Criação do Dicionário
+    line = f.readline()  # Leitura da primeira linha do ficheiro
+    vehicles_dict = {}  # Criação do Dicionário
     while line != '':  # Enquanto houver linhas com texto
         data = line.split(',')  # Agregação dos dados da linha
         plate, category, brand, model, owner, year = data
@@ -39,7 +40,7 @@ def manage_specific_park():
 def create_park():
     name = input("Nome: ")
     if name in park_dict:
-        raise Exception ("Já existe um parque com esse nome.")
+        raise Exception("Já existe um parque com esse nome.")
     location = input("Localização (latitude, longitude): ").split(",")
     if len(location) != 2:
         raise Exception("Coordenadas inválidas.")
@@ -54,13 +55,13 @@ def create_park():
     if capacity <= 0:
         raise Exception("Capacidade inválida.")
     privacy = input("Privado (s/n): ")
-    if not (privacy in ["s" , "n"]):
+    if not (privacy in ["s", "n"]):
         raise Exception("Opção inválida.")
     if privacy == "s":
         is_private = True
     else:
         is_private = False
-    park = Park(name, location, capacity, is_private)
+    park = Park(name, (latitude, longitude), capacity, is_private)
     park_dict.update({park.name: park})
 
 
@@ -95,10 +96,9 @@ def count_private_parks():
         if park.is_private:
             private_parks += 1
     percentage = (private_parks / total_parks) * 100
-    print(f"{private_parks} ({percentage}:.2f)\n")
+    print(f"{private_parks} ({percentage:.2f}) \n")
 
 
-# Este código crasha o programa, não dá load
 def count_vehicles_by_year():
     vehicles_by_year = {}
     for park in park_dict.values():
@@ -110,34 +110,37 @@ def count_vehicles_by_year():
             else:
                 vehicles_by_year[year] = 1
     plt.bar(vehicles_by_year.keys(), vehicles_by_year.values())
-    plt.show(block=False)
+    plt.show()
 
 
-# def park_dict_graph():
-#     park_visualization = []
-#     for park in park_dict.values():
-#         park_data = {}
-#         park_data['position'] = park.location
-#         park_data['radius'] =
+def create_park_graph_data():
+    park_visualization = []
+    for park in park_dict.values():
+        park_data = {}
+        park_data['position'] = (park.location[1], park.location[0])
+        park_data['radius'] = 3 * math.log(park.capacity, 10)
+        if park.vacancy_rate() < 0.75:
+            park_data['color'] = 'g'
+        elif park.vacancy_rate() < 1:
+            park_data['color'] = 'y'
+        else:
+            park_data['color'] = 'r'
+        park_visualization.append(park_data)
+    return park_visualization
 
 
 def view_park_map():
     fig, ax = plt.subplots()
-    ax.set_xlim((0, 100))
-    ax.set_ylim((0, 100))
-    ax.set_box_aspect(1)
+    ax.set_xlim((-180, 180))
+    ax.set_ylim((-90, 90))
+    ax.set_box_aspect(0.5)
 
-    circles = [
-        {'position': (10, 10), 'radius': 3.5, 'color': 'r'},
-        {'position': (50, 50), 'radius': 8.0, 'color': 'y'},
-        {'position': (60, 80), 'radius': 2.0, 'color': 'g'}
-    ]
+    circles = create_park_graph_data()
 
     for c in circles:
         circle = plt.Circle(c['position'], c['radius'], color=c['color'], alpha=0.5)
         ax.add_patch(circle)
-
-    plt.show(block=False)
+    plt.show()
 
 
 def stats_info():
@@ -205,7 +208,7 @@ def park_management_menu():
             else:
                 print("Opção inválida. Tente novamente.")
         except Exception as exception:
-           print(f"Ocorreu um erro: {exception}")
+            print(f"Ocorreu um erro: {exception}")
 
 
 Vehicle_Registry.vehicles_registry = read_registry('registo.txt')

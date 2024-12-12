@@ -1,6 +1,6 @@
 import Vehicle_Registry as vr
 
-class Park: #Criação da classe Park
+class Park: # Criação da classe Park
     def __init__(self, name, location, capacity, is_private): # nome, localização, capacidade e acesso (público ou privado)
         self.__name = name
         self.__location = location
@@ -77,7 +77,7 @@ class Park: #Criação da classe Park
         plate = input("Matrícula: ")
         if plate not in self.__allowed_plates:
             self.__allowed_plates.append(plate)
-            print(f"Foi concedido acesso ao parque {self.__name} ao veículo com a matrícula {plate} .")
+            print(f"Foi concedido acesso ao parque {self.__name} ao veículo com a matrícula {plate}.")
         else:
             print(f"O veículo com a matrícula {plate} já tem acesso ao parque {self.__name}.")
 
